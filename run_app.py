@@ -17,38 +17,38 @@ def check_requirements():
         'aml_streamlit_app.py'
     ]
     
-    print("🔍 Checking requirements...")
+    print("Checking requirements...")
     for file in required_files:
         if not os.path.exists(file):
-            print(f"❌ Missing required file: {file}")
+            print(f"Missing required file: {file}")
             return False
         else:
-            print(f"✅ Found: {file}")
+            print(f"Found: {file}")
     
     return True
 
 def train_models():
     """Train the ML models"""
-    print("\n🤖 Training ML models...")
+    print("\nTraining ML models...")
     
     if not os.path.exists('aml_models.pkl'):
         print("Training new models...")
         result = subprocess.run([sys.executable, 'aml_ml_solution.py'], capture_output=True, text=True)
         
         if result.returncode == 0:
-            print("✅ Models trained successfully!")
+            print("Models trained successfully!")
         else:
-            print("❌ Model training failed:")
+            print("Model training failed:")
             print(result.stderr)
             return False
     else:
-        print("✅ Pre-trained models found!")
+        print("Pre-trained models found!")
     
     return True
 
 def run_streamlit_app():
     """Run the Streamlit application"""
-    print("\n🚀 Starting AML AI System...")
+    print("\nStarting AML AI System...")
     print("Opening web application at http://localhost:8501")
     
     # Run Streamlit
@@ -57,17 +57,17 @@ def run_streamlit_app():
 def main():
     """Main execution function"""
     print("=" * 60)
-    print("🏛️  JULIUS BAER - AML AGENTIC AI SOLUTION")
+    print(" JULIUS BAER - AML AGENTIC AI SOLUTION")
     print("=" * 60)
     
     # Check requirements
     if not check_requirements():
-        print("\n❌ Setup incomplete. Please ensure all required files are present.")
+        print("\nSetup incomplete. Please ensure all required files are present.")
         sys.exit(1)
     
     # Train models
     if not train_models():
-        print("\n❌ Model training failed. Please check the error messages above.")
+        print("\nModel training failed. Please check the error messages above.")
         sys.exit(1)
     
     # Run the application

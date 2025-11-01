@@ -13,33 +13,33 @@ import seaborn as sns
 
 def analyze_model_performance():
     """Comprehensive model performance analysis"""
-    print("📊 AML MODEL PERFORMANCE ANALYSIS")
+    print("AML MODEL PERFORMANCE ANALYSIS")
     print("=" * 50)
     
     try:
         # Load the saved models
         models = joblib.load('aml_models.pkl')
-        print("✅ Models loaded successfully")
+        print("Models loaded successfully")
         
         # Load and prepare data
         df = pd.read_csv('transactions_mock_1000_for_participants.csv')
-        print(f"✅ Data loaded: {df.shape[0]} transactions, {df.shape[1]} columns")
+        print(f"Data loaded: {df.shape[0]} transactions, {df.shape[1]} columns")
         
         # Quick data analysis
-        print("\n📈 TARGET VARIABLE ANALYSIS:")
+        print("\nTARGET VARIABLE ANALYSIS:")
         suspicion_cases = df['suspicion_determined_datetime'].notna().sum()
         str_cases = df['str_filed_datetime'].notna().sum()
         print(f"  • Suspicion cases: {suspicion_cases}/1000 ({suspicion_cases/10:.1f}%)")
         print(f"  • STR filing cases: {str_cases}/1000 ({str_cases/10:.1f}%)")
         
         # Feature importance analysis
-        print("\n🎯 FEATURE IMPORTANCE ANALYSIS:")
+        print("\nFEATURE IMPORTANCE ANALYSIS:")
         
         if 'suspicion_classifier' in models:
             suspicion_importance = models['suspicion_classifier'].feature_importances_
             feature_names = models['feature_columns']
             
-            print("\n📊 Top 10 Features for Suspicion Detection:")
+            print("\nTop 10 Features for Suspicion Detection:")
             feature_importance_df = pd.DataFrame({
                 'feature': feature_names,
                 'importance': suspicion_importance
@@ -49,10 +49,10 @@ def analyze_model_performance():
                 print(f"  {i+1:2d}. {row['feature']:25s} {row['importance']:.4f}")
         
         # Model performance from training logs
-        print("\n📊 MODEL PERFORMANCE METRICS:")
+        print("\nMODEL PERFORMANCE METRICS:")
         print("=" * 30)
         
-        print("\n🔍 SUSPICION DETECTION MODEL:")
+        print("\nSUSPICION DETECTION MODEL:")
         print("  Classification Performance:")
         print("    • Accuracy: 93%")
         print("    • Precision (Normal): 0.93")
@@ -65,7 +65,7 @@ def analyze_model_performance():
         print("    • Root Mean Square Error: 3.11 hours")
         print("    • Model Type: Random Forest Regressor")
         
-        print("\n🗂️ STR FILING MODEL:")
+        print("\nSTR FILING MODEL:")
         print("  Classification Performance:")
         print("    • Accuracy: 93%")
         print("    • Precision (Normal): 0.93")
@@ -79,7 +79,7 @@ def analyze_model_performance():
         print("    • Model Type: Random Forest Regressor")
         
         # Model configuration
-        print("\n⚙️ MODEL CONFIGURATION:")
+        print("\nMODEL CONFIGURATION:")
         print("  Random Forest Parameters:")
         print("    • n_estimators: 100")
         print("    • max_depth: 10")
@@ -88,7 +88,7 @@ def analyze_model_performance():
         print("    • random_state: 42 (for deterministic results)")
         
         # Feature engineering details
-        print("\n🔧 FEATURE ENGINEERING:")
+        print("\nFEATURE ENGINEERING:")
         print("  Total Features: 23")
         print("  Feature Categories:")
         print("    • Amount-based: amount, amount_log, daily_cash_ratio")
@@ -100,7 +100,7 @@ def analyze_model_performance():
         print("    • Categorical: encoded versions of jurisdiction, channel, etc.")
         
         # Data quality assessment
-        print("\n🔍 DATA QUALITY ASSESSMENT:")
+        print("\nDATA QUALITY ASSESSMENT:")
         print(f"  • Dataset size: 1,000 transactions")
         print(f"  • Target 1 (Suspicion): {suspicion_cases} positive cases (7.5%)")
         print(f"  • Target 2 (STR): {str_cases} positive cases (7.5%)")
@@ -108,22 +108,22 @@ def analyze_model_performance():
         print(f"  • Class balance: Imbalanced (realistic for AML scenarios)")
         
         # Model strengths and limitations
-        print("\n💪 MODEL STRENGTHS:")
-        print("  ✅ Deterministic results (fixed random seed)")
-        print("  ✅ High accuracy for normal transactions (99%+)")
-        print("  ✅ Comprehensive feature engineering (23 features)")
-        print("  ✅ Realistic AML scenario modeling")
-        print("  ✅ Production-ready architecture")
-        print("  ✅ Fast inference time")
+        print("\nMODEL STRENGTHS:")
+        print("  Deterministic results (fixed random seed)")
+        print("  High accuracy for normal transactions (99%+)")
+        print("  Comprehensive feature engineering (23 features)")
+        print("  Realistic AML scenario modeling")
+        print("  Production-ready architecture")
+        print("  Fast inference time")
         
-        print("\n⚠️ MODEL LIMITATIONS:")
+        print("\nMODEL LIMITATIONS:")
         print("  • Low recall for suspicious cases (class imbalance)")
         print("  • Limited training data (1,000 transactions)")
         print("  • Synthetic data may not capture all real-world patterns")
         print("  • STR timing predictions have higher error (31h MAE)")
         
         # Recommendations
-        print("\n🎯 RECOMMENDATIONS FOR IMPROVEMENT:")
+        print("\nRECOMMENDATIONS FOR IMPROVEMENT:")
         print("  1. Collect more suspicious transaction examples")
         print("  2. Use class balancing techniques (SMOTE, class weights)")
         print("  3. Implement ensemble methods for better performance")
@@ -132,18 +132,18 @@ def analyze_model_performance():
         print("  6. A/B testing in production environment")
         
         # Business impact
-        print("\n💼 BUSINESS IMPACT ASSESSMENT:")
+        print("\nBUSINESS IMPACT ASSESSMENT:")
         print("  • Risk Detection: Automated flagging of 93% of suspicious cases")
         print("  • Efficiency Gain: Reduces manual review workload")
         print("  • Compliance: Maintains audit trail for regulatory requirements")
         print("  • Cost Savings: Estimated 70-80% reduction in manual effort")
         print("  • Alert Quality: High precision reduces false positives")
         
-        print("\n✅ PERFORMANCE ANALYSIS COMPLETE")
+        print("\nPERFORMANCE ANALYSIS COMPLETE")
         return True
         
     except Exception as e:
-        print(f"❌ Analysis failed: {e}")
+        print(f"Analysis failed: {e}")
         return False
 
 if __name__ == "__main__":

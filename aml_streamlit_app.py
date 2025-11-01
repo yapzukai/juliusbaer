@@ -15,8 +15,8 @@ warnings.filterwarnings('ignore')
 
 # Page configuration
 st.set_page_config(
-    page_title="Julius Baer AML AI System",
-    page_icon="🏛️",
+    page_title="Julius Baer AML AI",
+    page_icon="",
     layout="wide"
 )
 
@@ -38,7 +38,7 @@ class AMLAISystem:
             self.feature_columns = models['feature_columns']
             self.models_loaded = True
         except:
-            st.error("⚠️ ML models not found. Please run aml_ml_solution.py first to train the models.")
+            st.error("WARNING: ML models not found. Please run aml_ml_solution.py first to train the models.")
             self.models_loaded = False
     
     def preprocess_transaction(self, transaction_data):
@@ -139,7 +139,7 @@ class AMLAISystem:
 
 def create_real_time_monitoring():
     """Create the real-time monitoring dashboard"""
-    st.header("🔍 Real-Time AML Monitoring & Alerts")
+    st.header("Real-Time AML Monitoring & Alerts")
     
     # Initialize system
     aml_system = AMLAISystem()
@@ -171,7 +171,7 @@ def create_real_time_monitoring():
                 is_pep = st.checkbox("PEP (Politically Exposed Person)")
                 edd_required = st.checkbox("Enhanced Due Diligence Required")
             
-            submit_button = st.form_submit_button("🔍 Analyze Transaction", use_container_width=True)
+            submit_button = st.form_submit_button("Analyze Transaction", use_container_width=True)
         
         if submit_button and aml_system.models_loaded:
             # Create transaction data
@@ -201,7 +201,7 @@ def create_real_time_monitoring():
             
             if prediction:
                 # Display results
-                st.subheader("🚨 AML Risk Assessment")
+                st.subheader("AML Risk Assessment")
                 
                 # Risk score gauge
                 fig = go.Figure(go.Indicator(
@@ -230,13 +230,13 @@ def create_real_time_monitoring():
                 
                 # Risk level determination
                 if prediction['risk_score'] >= 70:
-                    risk_level = "🔴 HIGH RISK"
+                    risk_level = "HIGH RISK"
                     alert_color = "red"
                 elif prediction['risk_score'] >= 30:
-                    risk_level = "🟡 MEDIUM RISK"
+                    risk_level = "MEDIUM RISK"
                     alert_color = "orange"
                 else:
-                    risk_level = "🟢 LOW RISK"
+                    risk_level = "LOW RISK"
                     alert_color = "green"
                 
                 st.markdown(f"### {risk_level}")
@@ -249,17 +249,17 @@ def create_real_time_monitoring():
                     if prediction['suspicion_prediction']:
                         st.warning(f"⏰ Suspicion expected in {prediction['hours_to_suspicion']:.1f} hours")
                     else:
-                        st.success("✅ No suspicion expected")
+                        st.success("No suspicion expected")
                 
                 with col_2:
                     st.metric("STR Filing Probability", f"{prediction['str_probability']:.1%}")
                     if prediction['str_prediction']:
-                        st.error(f"📋 STR filing expected in {prediction['hours_to_str']:.1f} hours")
+                        st.error(f"STR filing expected in {prediction['hours_to_str']:.1f} hours")
                     else:
-                        st.success("✅ No STR filing expected")
+                        st.success("No STR filing expected")
     
     with col2:
-        st.subheader("🚨 Alert System")
+        st.subheader("Alert System")
         
         # Sample alerts
         st.markdown("### Recent Alerts")
@@ -272,21 +272,21 @@ def create_real_time_monitoring():
         
         for alert in alerts:
             if alert["type"] == "HIGH":
-                st.error(f"🔴 **{alert['type']}** ({alert['time']}): {alert['message']} - {alert['transaction']}")
+                st.error(f"**{alert['type']}** ({alert['time']}): {alert['message']} - {alert['transaction']}")
             elif alert["type"] == "MEDIUM":
-                st.warning(f"🟡 **{alert['type']}** ({alert['time']}): {alert['message']} - {alert['transaction']}")
+                st.warning(f"**{alert['type']}** ({alert['time']}): {alert['message']} - {alert['transaction']}")
             else:
-                st.info(f"🟢 **{alert['type']}** ({alert['time']}): {alert['message']} - {alert['transaction']}")
+                st.info(f"**{alert['type']}** ({alert['time']}): {alert['message']} - {alert['transaction']}")
         
         st.markdown("### Regulatory Updates")
-        st.info("📢 **New FINMA Circular**: Enhanced surveillance for crypto-related transactions")
-        st.info("📢 **MAS Alert**: Increased scrutiny on Russia-related payments")
+        st.info("**New FINMA Circular**: Enhanced surveillance for crypto-related transactions")
+        st.info("**MAS Alert**: Increased scrutiny on Russia-related payments")
 
 def create_document_corroboration():
     """Create the document corroboration system"""
-    st.header("📄 Document & Image Corroboration")
+    st.header("Document & Image Corroboration")
     
-    tab1, tab2, tab3 = st.tabs(["📄 Document Analysis", "🖼️ Image Verification", "📊 Risk Report"])
+    tab1, tab2, tab3 = st.tabs(["Document Analysis", "Image Verification", "Risk Report"])
     
     with tab1:
         st.subheader("Document Upload & Analysis")
@@ -297,20 +297,20 @@ def create_document_corroboration():
             col1, col2 = st.columns([2, 1])
             
             with col1:
-                st.success(f"✅ File uploaded: {uploaded_file.name}")
+                st.success(f"File uploaded: {uploaded_file.name}")
                 
                 # Simulated document analysis
                 with st.spinner("Analyzing document..."):
                     import time
                     time.sleep(2)
                 
-                st.subheader("📋 Document Analysis Results")
+                st.subheader("Document Analysis Results")
                 
                 # Format validation
                 st.markdown("### Format Validation")
-                st.success("✅ Document structure: Valid")
-                st.success("✅ Required fields: Present")
-                st.warning("⚠️ Minor formatting inconsistency detected in Section 3")
+                st.success("Document structure: Valid")
+                st.success("Required fields: Present")
+                st.warning("Minor formatting inconsistency detected in Section 3")
                 
                 # Content validation
                 st.markdown("### Content Validation")
@@ -322,14 +322,14 @@ def create_document_corroboration():
                 
                 for issue in issues:
                     if issue["type"] == "error":
-                        st.error(f"❌ **Error**: {issue['message']}")
+                        st.error(f"**Error**: {issue['message']}")
                     elif issue["type"] == "warning":
-                        st.warning(f"⚠️ **Warning**: {issue['message']}")
+                        st.warning(f"**Warning**: {issue['message']}")
                     else:
-                        st.info(f"ℹ️ **Info**: {issue['message']}")
+                        st.info(f"**Info**: {issue['message']}")
             
             with col2:
-                st.subheader("📊 Document Risk Score")
+                st.subheader("Document Risk Score")
                 
                 # Document risk gauge
                 doc_risk_score = 35
@@ -362,7 +362,7 @@ def create_document_corroboration():
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("### 🔍 Image Analysis")
+            st.markdown("### Image Analysis")
             
             if uploaded_file and uploaded_file.type.startswith('image'):
                 st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
@@ -370,21 +370,21 @@ def create_document_corroboration():
                 with st.spinner("Analyzing image integrity..."):
                     time.sleep(2)
                 
-                st.success("✅ **Authenticity Check**: No tampering detected")
-                st.success("✅ **Reverse Image Search**: No matches found")
-                st.warning("⚠️ **AI Generation Check**: 15% probability of AI generation")
-                st.success("✅ **Metadata Analysis**: Consistent timestamp and location")
+                st.success("**Authenticity Check**: No tampering detected")
+                st.success("**Reverse Image Search**: No matches found")
+                st.warning("**AI Generation Check**: 15% probability of AI generation")
+                st.success("**Metadata Analysis**: Consistent timestamp and location")
             else:
                 st.info("Please upload an image file for integrity analysis")
         
         with col2:
-            st.markdown("### 🛡️ Security Analysis")
+            st.markdown("### Security Analysis")
             
             security_checks = [
-                {"check": "Digital Signature", "status": "✅ Valid", "details": "Document signed with valid certificate"},
-                {"check": "Watermark Detection", "status": "✅ Present", "details": "Official watermark verified"},
-                {"check": "Font Analysis", "status": "⚠️ Mixed", "details": "Multiple fonts detected - review required"},
-                {"check": "Layout Consistency", "status": "✅ Consistent", "details": "Standard document template"}
+                {"check": "Digital Signature", "status": "Valid", "details": "Document signed with valid certificate"},
+                {"check": "Watermark Detection", "status": "Present", "details": "Official watermark verified"},
+                {"check": "Font Analysis", "status": "Mixed", "details": "Multiple fonts detected - review required"},
+                {"check": "Layout Consistency", "status": "Consistent", "details": "Standard document template"}
             ]
             
             for check in security_checks:
@@ -392,7 +392,7 @@ def create_document_corroboration():
                     st.write(check['details'])
     
     with tab3:
-        st.subheader("📊 Comprehensive Risk Report")
+        st.subheader("Comprehensive Risk Report")
         
         col1, col2 = st.columns(2)
         
@@ -420,14 +420,14 @@ def create_document_corroboration():
             fig.update_layout(height=300)
             st.plotly_chart(fig, use_container_width=True)
             
-            st.markdown("### 🎯 Recommended Actions")
+            st.markdown("### Recommended Actions")
             st.warning("1. **Verify amount discrepancy** with client")
             st.info("2. **Request standardized date format** for future submissions")
             st.info("3. **Obtain missing witness signature**")
             st.success("4. **Document approved** pending minor corrections")
         
         with col2:
-            st.markdown("### 📈 Risk Breakdown")
+            st.markdown("### Risk Breakdown")
             
             risk_categories = ['Content Accuracy', 'Format Compliance', 'Image Integrity', 'Security Features']
             risk_scores = [75, 45, 20, 15]
@@ -442,7 +442,7 @@ def create_document_corroboration():
             fig.update_layout(height=300)
             st.plotly_chart(fig, use_container_width=True)
             
-            st.markdown("### 📋 Audit Trail")
+            st.markdown("### Audit Trail")
             audit_events = [
                 "Document uploaded at 14:23:15",
                 "OCR processing completed at 14:23:45",
@@ -452,11 +452,11 @@ def create_document_corroboration():
             ]
             
             for event in audit_events:
-                st.text(f"✓ {event}")
+                st.text(f"{event}")
 
 def create_dashboard():
     """Create the main dashboard"""
-    st.header("📊 AML Command Center")
+    st.header("AML Command Center")
     
     # Key metrics
     col1, col2, col3, col4 = st.columns(4)
@@ -507,7 +507,7 @@ def create_dashboard():
         st.plotly_chart(fig, use_container_width=True)
     
     # Recent activity
-    st.subheader("🕐 Recent Activity")
+    st.subheader("Recent Activity")
     
     recent_activity = pd.DataFrame({
         'Time': ['14:25', '14:23', '14:20', '14:18', '14:15'],
@@ -536,31 +536,31 @@ def create_dashboard():
 
 def main():
     """Main application"""
-    st.title("🏛️ Julius Baer - Agentic AI for AML Monitoring")
+    st.title("Julius Baer - Agentic AI for AML Monitoring")
     st.markdown("---")
     
     # Sidebar navigation
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Select Module",
-        ["🏠 Dashboard", "🔍 Real-Time Monitoring", "📄 Document Corroboration"]
+        ["Dashboard", "Real-Time Monitoring", "Document Corroboration"]
     )
     
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### 🎯 Challenge Features")
-    st.sidebar.success("✅ Real-time AML monitoring")
-    st.sidebar.success("✅ ML-based risk prediction")
-    st.sidebar.success("✅ Document verification")
-    st.sidebar.success("✅ Image integrity analysis")
-    st.sidebar.success("✅ Automated alerts")
-    st.sidebar.success("✅ Compliance reporting")
+    st.sidebar.markdown("### Challenge Features")
+    st.sidebar.success("Real-time AML monitoring")
+    st.sidebar.success("ML-based risk prediction")
+    st.sidebar.success("Document verification")
+    st.sidebar.success("Image integrity analysis")
+    st.sidebar.success("Automated alerts")
+    st.sidebar.success("Compliance reporting")
     
     # Main content
-    if page == "🏠 Dashboard":
+    if page == "Dashboard":
         create_dashboard()
-    elif page == "🔍 Real-Time Monitoring":
+    elif page == "Real-Time Monitoring":
         create_real_time_monitoring()
-    elif page == "📄 Document Corroboration":
+    elif page == "Document Corroboration":
         create_document_corroboration()
 
 if __name__ == "__main__":
